@@ -1,0 +1,38 @@
+<mat-toolbar class="myNav position-fixed px-md-5">
+  <a class="navbar-brand" routerLink="/home"
+    ><img
+      src="./assets/images/notes-notepad-svgrepo-com.svg"
+      width="30"
+      alt="logo"
+    />
+    Take my notes
+  </a>
+  <span class="example-spacer"></span>
+
+  <ul class="navbar-nav">
+    <button mat-button [matMenuTriggerFor]="menu" *ngIf="!isLogged">
+      <i class="fas fa-user fs-3"></i>
+      {{ menuName }}
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button
+        mat-menu-item
+        routerLink="/login"
+        routerLinkActive="bg-dark text-white"
+      >
+        Login
+      </button>
+      <button
+        mat-menu-item
+        routerLink="/register"
+        routerLinkActive="bg-dark text-white"
+      >
+        Register
+      </button>
+    </mat-menu>
+    <li (click)="signOut()" class="nav-item" *ngIf="isLogged">
+      <a class="nav-link">LogOut</a>
+    </li>
+  </ul>
+</mat-toolbar>

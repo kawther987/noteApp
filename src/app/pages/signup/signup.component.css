@@ -1,0 +1,5 @@
+@import "../../../styles.css";
+
+.register {
+  background-color: var(--main-bg);
+}

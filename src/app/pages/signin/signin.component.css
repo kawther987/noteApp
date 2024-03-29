@@ -1,0 +1,4 @@
+@import "../../../styles.css";
+.login {
+  background-color: var(--main-bg);
+}

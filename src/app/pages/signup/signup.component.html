@@ -1,0 +1,187 @@
+<section>
+  <div class="container my-5 register border border-2 rounded-3">
+    <div class="row g-4 align-items-center">
+      <div class="col-md-6">
+        <div>
+          <img src="./assets/images/Sign up-rafiki.svg" alt="signUp" />
+        </div>
+      </div>
+      <form
+        [formGroup]="registerForm"
+        (ngSubmit)="handelForm(registerForm)"
+        class="col-md-6"
+      >
+        <div>
+          <label for="name">Name :</label>
+          <input
+            type="text"
+            formControlName="name"
+            class="form-control mb-3"
+            id="name"
+          />
+          <div
+            class="alert alert-danger"
+            *ngIf="
+              registerForm.get('name')?.errors &&
+              (registerForm.get('name')?.touched ||
+                registerForm.get('name')?.value.length > 0)
+            "
+          >
+            <p
+              *ngIf="registerForm.get('name')?.getError('required')"
+              class="mb-0"
+            >
+              Name is required
+            </p>
+            <p
+              *ngIf="registerForm.get('name')?.getError('minlength')"
+              class="mb-0"
+            >
+              Min length is 3
+            </p>
+            <p
+              *ngIf="registerForm.get('name')?.getError('maxlength')"
+              class="mb-0"
+            >
+              Max length is 10
+            </p>
+          </div>
+        </div>
+        <div>
+          <label for="email">Email :</label>
+          <input
+            formControlName="email"
+            type="email"
+            class="form-control mb-3"
+            id="email"
+          />
+          <div
+            class="alert alert-danger"
+            *ngIf="
+              registerForm.get('email')?.errors &&
+              (registerForm.get('email')?.touched ||
+                registerForm.get('email')?.value.length > 0)
+            "
+          >
+            <p
+              *ngIf="registerForm.get('email')?.getError('required')"
+              class="mb-0"
+            >
+              Email is required
+            </p>
+            <p
+              *ngIf="registerForm.get('email')?.getError('email')"
+              class="mb-0"
+            >
+              Enter valid email format
+            </p>
+          </div>
+        </div>
+
+        <div>
+          <label for="password">Password :</label>
+          <input
+            formControlName="password"
+            type="password"
+            class="form-control mb-3"
+            id="password"
+          />
+          <div
+            class="alert alert-danger"
+            *ngIf="
+              registerForm.get('password')?.errors &&
+              (registerForm.get('password')?.touched ||
+                registerForm.get('password')?.value.length > 0)
+            "
+          >
+            <p
+              *ngIf="registerForm.get('password')?.getError('required')"
+              class="mb-0"
+            >
+              Password is required
+            </p>
+            <p
+              *ngIf="registerForm.get('password')?.getError('pattern')"
+              class="mb-0"
+            >
+              Minimum 5 characters ,start with capital letter
+            </p>
+          </div>
+        </div>
+        <div>
+          <label for="age">Age :</label>
+          <input
+            formControlName="age"
+            type="number"
+            class="form-control mb-3"
+            id="age"
+          />
+          <div
+            class="alert alert-danger"
+            *ngIf="
+              registerForm.get('age')?.errors &&
+              (registerForm.get('age')?.touched ||
+                registerForm.get('age')?.value > 0)
+            "
+          >
+            <p
+              *ngIf="registerForm.get('age')?.getError('required')"
+              class="mb-0"
+            >
+              Age is required
+            </p>
+            <p
+              *ngIf="registerForm.get('age')?.getError('pattern')"
+              class="mb-0"
+            >
+              Age must be between 10 and 80
+            </p>
+          </div>
+        </div>
+        <div>
+          <label for="phone">Phone :</label>
+          <input
+            formControlName="phone"
+            type="tel"
+            class="form-control mb-3"
+            id="phone"
+          />
+          <div
+            class="alert alert-danger"
+            *ngIf="
+              registerForm.get('phone')?.errors &&
+              (registerForm.get('phone')?.touched ||
+                registerForm.get('phone')?.value.length > 0)
+            "
+          >
+            <p
+              *ngIf="registerForm.get('phone')?.getError('required')"
+              class="mb-0"
+            >
+              Phone is required
+            </p>
+            <p
+              *ngIf="registerForm.get('phone')?.getError('pattern')"
+              class="mb-0"
+            >
+              Accept only Egyptain phone
+            </p>
+          </div>
+        </div>
+        <p *ngIf="errMsg" class="alert alert-danger mb-3 text-center">
+          {{ errMsg }}
+        </p>
+
+        <button
+          [disabled]="registerForm.invalid"
+          mat-raised-button
+          color="accent"
+          class="w-100"
+        >
+          <i *ngIf="isLoading" class="fas fa-spin fa-spinner"></i>
+          <span *ngIf="!isLoading"> Sign Up</span>
+        </button>
+      </form>
+    </div>
+  </div>
+</section>
