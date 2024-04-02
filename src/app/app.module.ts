@@ -11,12 +11,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NavbarComponent } from './components/navbar/navbar.component';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatButtonModule } from '@angular/material/button';
+
 import { DialogComponent } from './components/dialog/dialog.component';
 import { SharedModule } from './core/shared/shared/shared.module';
 import { SearchPipe } from './core/pipes/search.pipe';
 import { LoaderInterceptor } from './core/interceptors/loader.interceptor';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -36,9 +36,8 @@ import { LoaderInterceptor } from './core/interceptors/loader.interceptor';
     ReactiveFormsModule,
     HttpClientModule,
     FormsModule,
-    MatButtonModule,
-    MatMenuModule,
     SharedModule,
+    ToastrModule.forRoot(),
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },

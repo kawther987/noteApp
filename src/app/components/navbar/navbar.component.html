@@ -10,12 +10,18 @@
   <span class="example-spacer"></span>
 
   <ul class="navbar-nav">
-    <button mat-button [matMenuTriggerFor]="menu" *ngIf="!isLogged">
-      <i class="fas fa-user fs-3"></i>
+    <button
+      mat-button
+      aria-label="Example icon-button with a menu"
+      [matMenuTriggerFor]="menu"
+      *ngIf="!isLogged"
+    >
       {{ menuName }}
       <mat-icon>more_vert</mat-icon>
+      <!-- <mat-icon>person</mat-icon> -->
     </button>
-    <mat-menu #menu="matMenu">
+
+    <mat-menu #menu="matMenu" xPosition="after">
       <button
         mat-menu-item
         routerLink="/login"

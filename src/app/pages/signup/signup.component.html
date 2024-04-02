@@ -1,176 +1,114 @@
 <section>
-  <div class="container my-5 register border border-2 rounded-3">
+  <div class="container my-5 register border border-2 rounded-3 py-3">
     <div class="row g-4 align-items-center">
       <div class="col-md-6">
         <div>
           <img src="./assets/images/Sign up-rafiki.svg" alt="signUp" />
         </div>
       </div>
+
       <form
+        class="example-form col-md-6"
         [formGroup]="registerForm"
         (ngSubmit)="handelForm(registerForm)"
-        class="col-md-6"
       >
-        <div>
-          <label for="name">Name :</label>
+        <mat-form-field class="w-100" appearance="outline" color="accent">
+          <mat-label>Name</mat-label>
           <input
             type="text"
             formControlName="name"
-            class="form-control mb-3"
-            id="name"
+            matInput
+            placeholder="Ex: kawther"
           />
-          <div
-            class="alert alert-danger"
-            *ngIf="
-              registerForm.get('name')?.errors &&
-              (registerForm.get('name')?.touched ||
-                registerForm.get('name')?.value.length > 0)
-            "
-          >
-            <p
-              *ngIf="registerForm.get('name')?.getError('required')"
-              class="mb-0"
-            >
-              Name is required
-            </p>
-            <p
-              *ngIf="registerForm.get('name')?.getError('minlength')"
-              class="mb-0"
-            >
-              Min length is 3
-            </p>
-            <p
-              *ngIf="registerForm.get('name')?.getError('maxlength')"
-              class="mb-0"
-            >
-              Max length is 10
-            </p>
-          </div>
-        </div>
-        <div>
-          <label for="email">Email :</label>
-          <input
-            formControlName="email"
-            type="email"
-            class="form-control mb-3"
-            id="email"
-          />
-          <div
-            class="alert alert-danger"
-            *ngIf="
-              registerForm.get('email')?.errors &&
-              (registerForm.get('email')?.touched ||
-                registerForm.get('email')?.value.length > 0)
-            "
-          >
-            <p
-              *ngIf="registerForm.get('email')?.getError('required')"
-              class="mb-0"
-            >
-              Email is required
-            </p>
-            <p
-              *ngIf="registerForm.get('email')?.getError('email')"
-              class="mb-0"
-            >
-              Enter valid email format
-            </p>
-          </div>
-        </div>
+          <mat-error *ngIf="registerForm.get('name')?.hasError('minlength')">
+            Minimum Length is 3 chars
+          </mat-error>
+          <mat-error *ngIf="registerForm.get('name')?.hasError('maxlength')">
+            Maximum Length is 10 chars
+          </mat-error>
+          <mat-error *ngIf="registerForm.get('name')?.hasError('required')">
+            Name is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
 
-        <div>
-          <label for="password">Password :</label>
+        <mat-form-field class="w-100" appearance="outline" color="accent">
+          <mat-label>Email</mat-label>
           <input
+            type="email"
+            formControlName="email"
+            matInput
+            placeholder="Ex: pat@example.com"
+          />
+          <mat-error
+            *ngIf="
+              registerForm.get('email')?.hasError('email') &&
+              !registerForm.get('email')?.hasError('required')
+            "
+          >
+            Please enter a valid email address
+          </mat-error>
+          <mat-error *ngIf="registerForm.get('email')?.hasError('required')">
+            Email is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="w-100" appearance="outline" color="accent">
+          <mat-label>Password</mat-label>
+          <input
+            placeholder="Ex: Aa12345"
             formControlName="password"
-            type="password"
-            class="form-control mb-3"
-            id="password"
+            matInput
+            [type]="hide ? 'password' : 'text'"
           />
-          <div
-            class="alert alert-danger"
-            *ngIf="
-              registerForm.get('password')?.errors &&
-              (registerForm.get('password')?.touched ||
-                registerForm.get('password')?.value.length > 0)
-            "
+          <button
+            mat-icon-button
+            matSuffix
+            type="button"
+            (click)="hide = !hide"
+            [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hide"
           >
-            <p
-              *ngIf="registerForm.get('password')?.getError('required')"
-              class="mb-0"
-            >
-              Password is required
-            </p>
-            <p
-              *ngIf="registerForm.get('password')?.getError('pattern')"
-              class="mb-0"
-            >
-              Minimum 5 characters ,start with capital letter
-            </p>
-          </div>
-        </div>
-        <div>
-          <label for="age">Age :</label>
+            <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+          </button>
+          <mat-error *ngIf="registerForm.get('password')?.hasError('required')">
+            Password is <strong>required</strong>
+          </mat-error>
+          <mat-error *ngIf="registerForm.get('password')?.hasError('pattern')">
+            Minimum 5 characters ,start with capital letter
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="w-100" appearance="outline" color="accent">
+          <mat-label>Age</mat-label>
           <input
-            formControlName="age"
             type="number"
-            class="form-control mb-3"
-            id="age"
+            formControlName="age"
+            matInput
+            placeholder="Ex: your age"
           />
-          <div
-            class="alert alert-danger"
-            *ngIf="
-              registerForm.get('age')?.errors &&
-              (registerForm.get('age')?.touched ||
-                registerForm.get('age')?.value > 0)
-            "
-          >
-            <p
-              *ngIf="registerForm.get('age')?.getError('required')"
-              class="mb-0"
-            >
-              Age is required
-            </p>
-            <p
-              *ngIf="registerForm.get('age')?.getError('pattern')"
-              class="mb-0"
-            >
-              Age must be between 10 and 80
-            </p>
-          </div>
-        </div>
-        <div>
-          <label for="phone">Phone :</label>
+          <mat-error *ngIf="registerForm.get('age')?.hasError('pattern')">
+            Age must be between 10 and 80
+          </mat-error>
+          <mat-error *ngIf="registerForm.get('age')?.hasError('required')">
+            Age is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="w-100" appearance="outline" color="accent">
+          <mat-label>Phone</mat-label>
           <input
-            formControlName="phone"
             type="tel"
-            class="form-control mb-3"
-            id="phone"
+            formControlName="phone"
+            matInput
+            placeholder="Ex: 01156583620"
           />
-          <div
-            class="alert alert-danger"
-            *ngIf="
-              registerForm.get('phone')?.errors &&
-              (registerForm.get('phone')?.touched ||
-                registerForm.get('phone')?.value.length > 0)
-            "
-          >
-            <p
-              *ngIf="registerForm.get('phone')?.getError('required')"
-              class="mb-0"
-            >
-              Phone is required
-            </p>
-            <p
-              *ngIf="registerForm.get('phone')?.getError('pattern')"
-              class="mb-0"
-            >
-              Accept only Egyptain phone
-            </p>
-          </div>
-        </div>
-        <p *ngIf="errMsg" class="alert alert-danger mb-3 text-center">
-          {{ errMsg }}
-        </p>
+          <mat-error *ngIf="registerForm.get('phone')?.hasError('pattern')">
+            Accept only Egyptain phone
+          </mat-error>
+          <mat-error *ngIf="registerForm.get('phone')?.hasError('required')">
+            Phone is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
 
         <button
           [disabled]="registerForm.invalid"

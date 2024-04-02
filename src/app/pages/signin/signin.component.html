@@ -45,65 +45,52 @@
   <div class="container my-5 login border border-2 rounded-3">
     <div class="row g-4 align-items-center">
       <form [formGroup]="loginForm" (ngSubmit)="handelForm()" class="col-md-6">
-        <div>
-          <label for="email">Email :</label>
+        <mat-form-field class="w-100" appearance="outline" color="accent">
+          <mat-label>Email</mat-label>
           <input
-            formControlName="email"
             type="email"
-            class="form-control mb-3"
-            id="email"
+            formControlName="email"
+            matInput
+            placeholder="Ex: pat@example.com"
           />
-          <div
-            class="alert alert-danger"
+          <mat-error
             *ngIf="
-              loginForm.get('email')?.errors &&
-              (loginForm.get('email')?.touched ||
-                loginForm.get('email')?.value.length > 0)
+              loginForm.get('email')?.hasError('email') &&
+              !loginForm.get('email')?.hasError('required')
             "
           >
-            <p
-              *ngIf="loginForm.get('email')?.getError('required')"
-              class="mb-0"
-            >
-              Email is required
-            </p>
-            <p *ngIf="loginForm.get('email')?.getError('email')" class="mb-0">
-              Enter valid email format
-            </p>
-          </div>
-        </div>
+            Please enter a valid email address
+          </mat-error>
+          <mat-error *ngIf="loginForm.get('email')?.hasError('required')">
+            Email is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
 
-        <div>
-          <label for="password">Password :</label>
+        <mat-form-field class="w-100" appearance="outline" color="accent">
+          <mat-label>Password</mat-label>
           <input
+            placeholder="Ex: Aa12345"
             formControlName="password"
-            type="password"
-            class="form-control mb-3"
-            id="password"
+            matInput
+            [type]="hide ? 'password' : 'text'"
           />
-          <div
-            class="alert alert-danger"
-            *ngIf="
-              loginForm.get('password')?.errors &&
-              (loginForm.get('password')?.touched ||
-                loginForm.get('password')?.value.length > 0)
-            "
+          <button
+            mat-icon-button
+            matSuffix
+            type="button"
+            (click)="hide = !hide"
+            [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hide"
           >
-            <p
-              *ngIf="loginForm.get('password')?.getError('required')"
-              class="mb-0"
-            >
-              Password is required
-            </p>
-            <p
-              *ngIf="loginForm.get('password')?.getError('pattern')"
-              class="mb-0"
-            >
-              Minimum 5 characters ,start with capital letter
-            </p>
-          </div>
-        </div>
-
+            <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+          </button>
+          <mat-error *ngIf="loginForm.get('password')?.hasError('required')">
+            Password is <strong>required</strong>
+          </mat-error>
+          <mat-error *ngIf="loginForm.get('password')?.hasError('pattern')">
+            Minimum 5 characters ,start with capital letter
+          </mat-error>
+        </mat-form-field>
         <button
           [disabled]="loginForm.invalid"
           mat-raised-button
@@ -113,8 +100,6 @@
           <i *ngIf="isLoading" class="fas fa-spin fa-spinner"></i>
           <span *ngIf="!isLoading"> Login</span>
         </button>
-
-        <p *ngIf="errMsg" class="alert alert-danger mb-0 mt-3">{{ errMsg }}</p>
       </form>
       <div class="col-md-6">
         <div>
